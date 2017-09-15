@@ -15,7 +15,7 @@ PostgreSQL database. The build  happens in an
 you can produce it locally with a minimum of hassle.
 
 ### Requirements
-  - [Docker] (https://www.docker.com/)
+  - [Docker](https://www.docker.com/)
   - make
 
 ### Instructions
