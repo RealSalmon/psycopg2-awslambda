@@ -1,0 +1,58 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: build image
+          command: docker build -t tempimage .
+      - run:
+          name: collect psycopg
+          command: |
+            mkdir -p workspace
+            docker run --name tempcontainer tempimage /bin/true
+            docker cp tempcontainer:/usr/local/src/psycopg2-2.7.3.1/build/lib.linux-x86_64-3.6/psycopg2 workspace
+            docker rm tempcontainer
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - psycopg2
+
+  test:
+    docker:
+      - image: amazonlinux:2017.03
+        environment:
+          PGHOST: 127.0.0.1
+      - image: postgres:9.6
+    steps:
+      - checkout
+      - attach_workspace:
+          at: tests
+      - run:
+          command: pwd && ls && ls tests
+      # the python build should be maintained in an custom image as it takes
+      # so long
+      - run:
+          name: install python3.6 and required packages
+          command: |
+            yum install -y gcc openssl-devel
+            cd /usr/local/src
+            curl -O https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz
+            tar -xzf Python-3.6.2.tgz
+            cd Python-3.6.2 && ./configure && make && make altinstall
+            python3.6 -m ensurepip && pip3.6 install pytest peewee
+      - run:
+          name: run tests
+          command: pytest tests
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
