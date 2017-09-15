@@ -4,7 +4,8 @@
 
 This project is based on the exellent 
 [awslambda-psycopg2](https://github.com/jkehler/awslambda-psycopg2) work done
-by @jkehler, without which I never figured out how to build this properly.
+by [jkehler](https://github.com/jkehler), without which I never figured out how 
+to build this properly.
 
 It will produce a build of [psycopg2](http://initd.org/psycopg/) with a 
 statically linked libpq library and  SSL support that is suitable for use with 
