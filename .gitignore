@@ -1,0 +1,6 @@
+.idea
+.DS_Store
+tests/.cache
+tests/psycopg2
+*.tar.gz
+*.pyc
