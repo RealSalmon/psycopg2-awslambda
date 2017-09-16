@@ -1,5 +1,7 @@
 # psycopg2-awslambda
 
+[![CircleCI](https://circleci.com/gh/RealSalmon/psycopg2-awslambda.svg?style=svg)](https://circleci.com/gh/RealSalmon/psycopg2-awslambda)
+
 ## A Docker-based build of psycopg2 for AWS Lambda using Python 3.6
 
 This project is based on the exellent 

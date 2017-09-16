@@ -1,3 +1,4 @@
+import os
 import time
 import logging
 import peewee
@@ -14,11 +15,12 @@ class GreatThing(peewee.Model):
 
 
 def setup_function():
+
     db.init(
         'postgres',
         user='postgres',
         password=None,
-        host='postgresql',
+        host=os.environ['PGHOST']
     )
 
     tries = 0

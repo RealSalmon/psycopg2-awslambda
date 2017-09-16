@@ -15,3 +15,5 @@ services:
     command: pytest /tests
     depends_on:
       - postgresql
+    environment:
+      - PGHOST=postgresql
