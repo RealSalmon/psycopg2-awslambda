@@ -7,12 +7,13 @@ services:
       driver: none
 
   python:
-    build:
-      context: .
-      dockerfile: Dockerfile.tests.python
+    image: "realsalmon/amazonlinux-python"
     volumes:
      - .:/tests
-    command: pytest /tests
+    command:
+      - bash
+      - -c
+      - "pip install peewee pytest && pytest /tests"
     depends_on:
       - postgresql
     environment:

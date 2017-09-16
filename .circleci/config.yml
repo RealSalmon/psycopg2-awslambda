@@ -23,7 +23,7 @@ jobs:
 
   test:
     docker:
-      - image: amazonlinux:2017.03
+      - image: realsalmon/amazonlinux-python
         environment:
           PGHOST: 127.0.0.1
       - image: postgres:9.6
@@ -32,21 +32,11 @@ jobs:
       - attach_workspace:
           at: tests
       - run:
-          command: pwd && ls && ls tests
-      # the python build should be maintained in an custom image as it takes
-      # so long
-      - run:
-          name: install python3.6 and required packages
-          command: |
-            yum install -y gcc openssl-devel
-            cd /usr/local/src
-            curl -O https://www.python.org/ftp/python/3.6.2/Python-3.6.2.tgz
-            tar -xzf Python-3.6.2.tgz
-            cd Python-3.6.2 && ./configure && make && make altinstall
-            python3.6 -m ensurepip && pip3.6 install pytest peewee
+          name: install required packages
+          command: /venv/bin/pip install pytest peewee
       - run:
           name: run tests
-          command: pytest tests
+          command: /venv/bin/pytest tests
 
 workflows:
   version: 2

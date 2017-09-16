@@ -13,7 +13,7 @@ shell:
 	docker run -it $(image) bash
 
 clean:
-	docker rmi $(image)
+	docker rmi $(image) realsalmon/amazonlinux-python
 	rm -f $(file)
 	rm -rf ./tests/psycopg2
 	cd tests && docker-compose down --rmi all

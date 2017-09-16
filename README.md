@@ -34,10 +34,11 @@ archive is the psycopg2 package that can be used with AWS Lambda.
   - cd to this repository's root directory
   - run 'make clean'
   
-This will remove the (rather large) Docker image and psycopg2 archive that were 
-built in the above steps. It will not remove the amazonlinux Docker image, which 
-you should delete manually if you do not wish to keep it. 
-(docker rmi amazonlinux)
+This will remove the (rather large) Docker image that was built for the purposes
+of building psycopg2, the psycopg2 archive, and the 
+realsalmon/amazonlinux-python Docker image. It will not remove the amazonlinux 
+or postgresql Docker images, which you should delete manually if you do not 
+wish to keep them. 
 
 ### Versions
   - Python 3.6.2
